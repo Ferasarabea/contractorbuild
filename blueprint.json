@@ -1,0 +1,23 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/",
+  "login": true,
+  "preferredVersions": {"php":"8.3","wp":"latest"},
+  "siteOptions": {"blogname":"Contractor Build","blogdescription":"Everything Contractors Need to Grow"},
+  "steps": [
+    {
+      "step":"installPlugin",
+      "pluginData":{"resource":"git:directory","url":"https://github.com/Ferasarabea/contractorbuild.git","ref":"codex/redesign-contractor-build.com-for-growth","refType":"branch","path":"wp-content/plugins/contractor-build-growth"},
+      "options":{"activate":true,"targetFolderName":"contractor-build-growth"}
+    },
+    {
+      "step":"installTheme",
+      "themeData":{"resource":"git:directory","url":"https://github.com/Ferasarabea/contractorbuild.git","ref":"codex/redesign-contractor-build.com-for-growth","refType":"branch","path":"wp-content/themes/contractor-build"},
+      "options":{"activate":true,"targetFolderName":"contractor-build"}
+    },
+    {
+      "step":"runPHP",
+      "code":"<?php require '/wordpress/wp-load.php'; update_option('permalink_structure', '/%postname%/'); flush_rewrite_rules();"
+    }
+  ]
+}
