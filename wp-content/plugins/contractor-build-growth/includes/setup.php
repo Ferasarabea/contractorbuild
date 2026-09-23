@@ -1,0 +1,77 @@
+<?php
+/** Starter-site generation. Existing content is never overwritten. */
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+
+function cbg_create_starter_content() {
+	if ( ! current_user_can( 'manage_options' ) || ! check_admin_referer( 'cbg_create_starter_content' ) ) { wp_die( 'Unauthorized request.' ); }
+
+	$core = cbg_core_page_library();
+	$ids = array();
+	foreach ( $core as $slug => $data ) {
+		$ids[ $slug ] = cbg_upsert_content( 'page', $data['title'], $slug, $data['content'], $data['excerpt'], $data['seo_title'], $data['meta'] );
+	}
+	if ( ! is_wp_error( $ids['home'] ) ) {
+		update_option( 'show_on_front', 'page' );
+		update_option( 'page_on_front', $ids['home'] );
+	}
+	if ( ! is_wp_error( $ids['resources'] ) ) { update_option( 'page_for_posts', $ids['resources'] ); }
+
+	foreach ( cbg_service_library() as $slug => $data ) {
+		cbg_upsert_content( 'service', $data['title'], $slug, cbg_render_service_content( $data ), $data['tagline'], $data['seo_title'], $data['meta'], $data );
+	}
+	foreach ( cbg_industry_library() as $slug => $data ) {
+		cbg_upsert_content( 'industry', $data['title'], $slug, cbg_render_industry_content( $data ), $data['tagline'], $data['seo_title'], $data['meta'], $data );
+	}
+	foreach ( array( 'Contractor Marketing', 'SEO', 'Google Ads', 'Local Services Ads', 'Google Business Profile', 'Websites', 'Lead Generation', 'Social Media Advertising', 'Business Growth' ) as $term ) {
+		if ( ! term_exists( $term, 'resource_category' ) ) { wp_insert_term( $term, 'resource_category' ); }
+	}
+	cbg_create_primary_menu( $ids );
+	flush_rewrite_rules();
+	wp_safe_redirect( add_query_arg( 'starter_content', 'created', admin_url( 'admin.php?page=contractor-build' ) ) );
+	exit;
+}
+add_action( 'admin_post_cbg_create_starter_content', 'cbg_create_starter_content' );
+
+function cbg_upsert_content( $type, $title, $slug, $content, $excerpt, $seo_title = '', $meta = '', $schema_data = array() ) {
+	$existing = get_page_by_path( $slug, OBJECT, $type );
+	if ( $existing ) { return $existing->ID; }
+	$id = wp_insert_post( array( 'post_type' => $type, 'post_title' => $title, 'post_name' => $slug, 'post_content' => $content, 'post_excerpt' => $excerpt, 'post_status' => 'publish' ), true );
+	if ( ! is_wp_error( $id ) ) {
+		update_post_meta( $id, '_cbg_seo_title', $seo_title );
+		update_post_meta( $id, '_cbg_meta_description', $meta );
+		if ( $schema_data ) { update_post_meta( $id, '_cbg_schema_data', wp_json_encode( $schema_data ) ); }
+	}
+	return $id;
+}
+
+function cbg_core_page_library() {
+	$audit = '[contractor_build_audit_form]';
+	return array(
+		'home' => cbg_core_page( 'Home', 'Everything contractors need to grow.', 'Contractor Marketing & Growth | Contractor Build', 'Contractor Build connects websites, SEO, Google Ads, social advertising, tracking, and follow-up into one measurable growth system.', '<h2>Build your business. Book more jobs.</h2><p>Contractor Build is the outsourced digital growth department for contractors and home-service businesses. Explore our <a href="/services/">services</a>, find your <a href="/industries/">industry</a>, or <a href="/free-marketing-audit/">request a free audit</a>.</p>' ),
+		'about' => cbg_core_page( 'About Contractor Build', 'A contractor-first growth partner built around the complete customer journey.', 'About Contractor Build | Contractor Growth Team', 'Learn why Contractor Build connects websites, visibility, advertising, tracking, and follow-up for contractor and home-service companies.', '<h2>Why Contractor Build exists</h2><p>Contractors are often forced to coordinate one website vendor, another SEO company, an ad manager, a call-tracking provider, and a CRM consultant. Each sees a fragment. Contractor Build exists to connect the whole acquisition system.</p><h2>Who we help</h2><p>We work with local contractors and home-service businesses whose growth depends on qualified calls, estimates, appointments, and disciplined follow-up—not vague awareness metrics.</p><h2>How we are different</h2><p>Our contractor-first approach begins with services, service areas, capacity, margins, seasonality, and the sales process. We plan channels only after understanding the operation they must support.</p><h2>Our growth-system philosophy</h2><p>Traffic must reach the right page. The page must earn action. The call or form must retain its source. The team must respond. The pipeline must show quality and outcome. Improvement happens across that chain.</p><h2>Our values</h2><ul><li>Useful work over marketing theater</li><li>Evidence over guarantees</li><li>Clear ownership and honest reporting</li><li>Policy-safe, accessible, people-first execution</li><li>Systems the client can understand and operate</li></ul><h2>How we measure marketing</h2><p>We agree on meaningful outcomes before launch. Depending on the systems available, that can include qualified calls, forms, appointments, estimates, pipeline value, sold work, cost per qualified opportunity, and conversion rate. We never invent results.</p><p><a href="/free-marketing-audit/">Start with a free marketing audit</a>.</p>' ),
+		'contact' => cbg_core_page( 'Contact', 'Tell us about your business, market, and next growth goal.', 'Contact Contractor Build', 'Contact Contractor Build about contractor websites, SEO, paid media, lead tracking, automation, and growth strategy.', '<h2>Start a useful conversation</h2><p>Share your primary services, service area, current marketing, and the constraint you want to solve. We will use the information to recommend the most useful next step.</p><p>Configured business contact details appear below. If none are shown, use the secure form.</p>[contractor_build_contact_details]' . $audit ),
+		'free-marketing-audit' => cbg_core_page( 'Free Contractor Marketing Audit', 'Find the leaks between visibility, inquiry, follow-up, and booked work.', 'Free Contractor Marketing Audit | Contractor Build', 'Request a practical audit of your contractor website, SEO, Maps, ads, reviews, tracking, competitors, and lead follow-up.', '<h2>Get a practical growth plan—not an automated score</h2><p>We review the customer-acquisition system around your real services, market, capacity, and goals. The audit is designed to identify priorities, dependencies, and measurement gaps.</p><h2>What we audit</h2><ul><li>Website message, mobile experience, speed, and conversion paths</li><li>Technical SEO, service content, internal links, and search visibility</li><li>Google Business Profile, Maps presence, reviews, and local consistency</li><li>Google Ads, Local Services Ads, and paid-social structure where active</li><li>Call, form, analytics, CRM, and attribution setup</li><li>Lead routing, missed calls, estimate follow-up, and reactivation</li><li>Competitor positioning, offers, pages, ads, and local search landscape</li></ul><h2>What happens next</h2><p>After reviewing the information, we will contact you about fit and the next step. No ranking, lead-volume, or revenue outcome is guaranteed.</p>' . $audit ),
+		'privacy-policy' => cbg_core_page( 'Privacy Policy', 'How Contractor Build handles information submitted through this website.', 'Privacy Policy | Contractor Build', 'Read the Contractor Build privacy notice covering submitted information, attribution data, service providers, retention, and privacy choices.', '<h2>Privacy notice</h2><p><strong>Review required before production:</strong> this operational template must be reviewed for the company’s actual jurisdiction, vendors, retention practices, and contact information.</p><h2>Information collected</h2><p>When you submit a form, the site may collect contact and company information, website and service-area details, marketing challenges, attribution parameters, referring page, and landing page. Standard server and analytics logs may include device, browser, and network information.</p><h2>How information is used</h2><p>Information may be used to respond to requests, assess service fit, provide requested communications, secure and improve the website, measure marketing, and meet legal obligations.</p><h2>Service providers and sharing</h2><p>Data may be processed by hosting, email, analytics, CRM, communications, security, and professional-service vendors acting for the business. Personal information is not sold as a standalone product.</p><h2>Retention, security, and choices</h2><p>Information should be retained only as long as reasonably necessary for the stated purposes and protected with access controls appropriate to its sensitivity. Users may request access, correction, deletion, or communication opt-out where applicable by using the configured contact method.</p><h2>Cookies and measurement</h2><p>The production site should describe the analytics and advertising technologies actually enabled and provide consent controls where required.</p><h2>Policy changes</h2><p>This notice may be updated as practices or legal requirements change. The production version should display an effective date and a configured privacy contact.</p>' ),
+		'terms' => cbg_core_page( 'Terms', 'Terms governing use of the Contractor Build website.', 'Website Terms | Contractor Build', 'Review the terms governing informational use of the Contractor Build website, submissions, intellectual property, and disclaimers.', '<h2>Website terms</h2><p><strong>Review required before production:</strong> qualified counsel should adapt these terms to the company’s actual entity, jurisdiction, services, and contact information.</p><h2>Informational purpose</h2><p>Website content describes general marketing services and is not a guarantee of rankings, leads, revenue, profitability, or any specific outcome.</p><h2>Requests and engagements</h2><p>Submitting a form does not create a client relationship. Any engagement is governed by a separate written agreement defining scope, fees, responsibilities, and terms.</p><h2>Acceptable use</h2><p>Users may not interfere with the site, attempt unauthorized access, transmit malicious code, misuse forms, or reproduce protected materials beyond applicable law.</p><h2>Intellectual property</h2><p>Unless otherwise stated, website copy, design, graphics, and code are owned by or licensed to the operator and may not be commercially reused without permission.</p><h2>Third-party services</h2><p>Links and integrations may lead to third-party services with their own terms and policies. Availability and behavior of those services are not controlled by this website.</p><h2>Disclaimers and limitation</h2><p>The site is provided on an as-available basis to the extent permitted by law. The final production terms should contain limitations appropriate to the governing jurisdiction.</p>' ),
+		'resources' => cbg_core_page( 'Contractor Marketing Resources', 'Practical guidance for building a better contractor acquisition system.', 'Contractor Marketing Resources | Contractor Build', 'Explore useful guides about contractor websites, SEO, Google Ads, local visibility, lead generation, social advertising, and business growth.', '<h2>Learn by growth problem</h2><p>The resource hub is organized around Contractor Marketing, SEO, Google Ads, Local Services Ads, Google Business Profile, Websites, Lead Generation, Social Media Advertising, and Business Growth.</p><p>We publish only when a topic deserves a useful, original treatment. Browse <a href="/services/">services</a>, explore <a href="/industries/">industry strategies</a>, or <a href="/free-marketing-audit/">request an audit</a> while the editorial library grows.</p>' ),
+		'accessibility' => cbg_core_page( 'Accessibility', 'Our commitment to an inclusive digital experience.', 'Accessibility | Contractor Build', 'Learn about Contractor Build’s accessibility commitment and how to report a barrier.', '<h2>Accessibility commitment</h2><p>Contractor Build aims to provide an inclusive website using semantic structure, keyboard access, visible focus, readable contrast, labeled forms, reduced-motion support, and meaningful alternatives.</p><h2>Feedback</h2><p>If you encounter a barrier, use the <a href="/contact/">contact form</a> and identify the page, task, technology, and problem. We will make reasonable efforts to provide the information or service another way while addressing the issue.</p>' ),
+		'results' => cbg_core_page( 'Results & Case Studies', 'A framework for verified client stories—without invented numbers.', 'Contractor Marketing Case Studies | Contractor Build', 'Explore verified Contractor Build case studies as they become available. No fabricated clients, revenue, leads, rankings, or advertising results.', '<h2>Evidence must be verified</h2><p>This library is ready for approved client stories, but no performance claims are published until source data and client permission are available.</p><h2>How every case study is structured</h2><ul><li>Client situation and operating context</li><li>Problem and measurement baseline</li><li>Strategy and implementation</li><li>Website, SEO, advertising, tracking, or automation changes</li><li>Verified results, timeframe, and limitations</li><li>Screenshots or source evidence approved for publication</li><li>Lessons that may help similar contractors</li></ul><h2>Placeholders remain private</h2><p>Administrators can prepare drafts using labels such as [VERIFIED LEAD INCREASE], [VERIFIED COST PER LEAD], and [VERIFIED TRAFFIC GROWTH]. Drafts should remain unpublished until every claim is verified.</p>[contractor_build_case_studies]<p><a href="/free-marketing-audit/">Discuss the growth system for your business</a>.</p>' ),
+	);
+}
+
+function cbg_core_page( $title, $excerpt, $seo_title, $meta, $content ) { return compact( 'title', 'excerpt', 'seo_title', 'meta', 'content' ); }
+
+function cbg_create_primary_menu( $ids ) {
+	$name = 'Primary Navigation';
+	$menu = wp_get_nav_menu_object( $name );
+	$menu_id = $menu ? $menu->term_id : wp_create_nav_menu( $name );
+	if ( is_wp_error( $menu_id ) || wp_get_nav_menu_items( $menu_id ) ) { return; }
+	$items = array( 'home' => 'Home', '_services' => 'Services', '_industries' => 'Industries', 'results' => 'Results', 'about' => 'About', 'resources' => 'Resources', 'contact' => 'Contact' );
+	foreach ( $items as $slug => $label ) {
+		if ( str_starts_with( $slug, '_' ) ) { wp_update_nav_menu_item( $menu_id, 0, array( 'menu-item-title' => $label, 'menu-item-url' => home_url( '/' . ltrim( $slug, '_' ) . '/' ), 'menu-item-status' => 'publish' ) ); }
+		elseif ( isset( $ids[ $slug ] ) && ! is_wp_error( $ids[ $slug ] ) ) { wp_update_nav_menu_item( $menu_id, 0, array( 'menu-item-title' => $label, 'menu-item-object' => 'page', 'menu-item-object-id' => $ids[ $slug ], 'menu-item-type' => 'post_type', 'menu-item-status' => 'publish' ) ); }
+	}
+	$locations = get_theme_mod( 'nav_menu_locations', array() );
+	$locations['primary'] = $menu_id;
+	set_theme_mod( 'nav_menu_locations', $locations );
+}

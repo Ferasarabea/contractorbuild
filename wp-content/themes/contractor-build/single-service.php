@@ -1,0 +1,5 @@
+<?php get_header(); ?>
+<?php while ( have_posts() ) : the_post(); ?>
+<header class="page-hero"><div class="container"><?php cb_breadcrumbs(); ?><p class="eyebrow">Growth service</p><h1><?php the_title(); ?></h1><p class="lede"><?php echo esc_html( cb_page_intro( 'A practical, measurable growth service built specifically for contractors and local service businesses.' ) ); ?></p><div class="button-row"><a class="btn" href="<?php echo esc_url( home_url( '/free-marketing-audit/' ) ); ?>">Get my free growth plan</a><a class="btn btn--outline" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Talk to our team</a></div></div></header>
+<section class="section"><div class="container content-layout"><article class="entry-content"><?php the_content(); ?></article><aside><div class="sidebar-cta"><p class="eyebrow">Make a better plan</p><h3>See where the leaks are.</h3><p>We will review the acquisition system around this service and identify practical priorities.</p><a class="btn btn--dark" href="<?php echo esc_url( home_url( '/free-marketing-audit/' ) ); ?>">Request an audit</a></div></aside></div></section>
+<?php endwhile; get_footer(); ?>
