@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+.vscode/
+node_modules/
+vendor/
+*.log
+.env
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
