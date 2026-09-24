@@ -7,6 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const megaButton = document.querySelector('.mega-toggle');
   const megaMenu = document.querySelector('.mega-menu');
 
+  const trackEvent = (eventName, parameters = {}) => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', eventName, parameters);
+    } else {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: eventName, ...parameters });
+    }
+  };
+
   const closeNavigation = () => {
     menuButton?.setAttribute('aria-expanded', 'false');
     nav?.classList.remove('is-open');
@@ -61,22 +70,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
-    link.addEventListener('click', () => window.dataLayer?.push({ event: 'phone_click', link_url: link.href }));
+    link.addEventListener('click', () => trackEvent('phone_click', { link_url: link.href }));
   });
   document.querySelectorAll('a[href^="mailto:"]').forEach((link) => {
-    link.addEventListener('click', () => window.dataLayer?.push({ event: 'email_click', link_url: link.href }));
+    link.addEventListener('click', () => trackEvent('email_click', { link_url: link.href }));
   });
   document.querySelectorAll('[data-cb-form]').forEach((form) => {
     let started = false;
     form.addEventListener('focusin', () => {
       if (!started) {
         started = true;
-        window.dataLayer?.push({ event: 'form_start', form_name: form.dataset.cbForm });
+        trackEvent('form_start', { form_name: form.dataset.cbForm });
       }
     });
     form.addEventListener('submit', () => {
-      window.dataLayer?.push({ event: 'form_submit', form_name: form.dataset.cbForm });
-      if (form.dataset.cbForm === 'audit') window.dataLayer?.push({ event: 'audit_request', form_name: form.dataset.cbForm });
+      trackEvent('form_submit', { form_name: form.dataset.cbForm });
+      if (form.dataset.cbForm === 'audit') trackEvent('audit_request', { form_name: form.dataset.cbForm });
     });
   });
 });
