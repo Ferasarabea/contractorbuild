@@ -12,6 +12,8 @@ on:
       - .github/workflows/deploy-preview-pages.yml
   workflow_dispatch:
 
+# Static preview deployment. Keep this workflow in sync with the generated Pages site.
+
 permissions:
   contents: read
   pages: write
