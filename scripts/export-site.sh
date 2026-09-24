@@ -36,6 +36,7 @@ while IFS= read -r url; do
 	mkdir -p "$(dirname "${destination}")"
 	curl -fsS "http://127.0.0.1:${PORT}${url}" -o "${destination}"
 	python3 "${ROOT}/scripts/rewrite-static-links.py" "${destination}" "${url}"
+	python3 "${ROOT}/scripts/seo-postprocess.py" "${destination}" "${url}"
 done < "${URLS}"
 
 python3 - "${ROOT}" "${URLS}" <<'PY'
@@ -49,4 +50,5 @@ body = '\n'.join(f'  <url><loc>{base}{url}</loc></url>' for url in urls)
 PY
 
 python3 "${ROOT}/scripts/audit-site.py" "${ROOT}" "${URLS}" "${ROOT}/docs/URL-INVENTORY.csv"
+python3 "${ROOT}/scripts/verify-seo.py" "${ROOT}" "${URLS}"
 echo "Exported $(wc -l < "${URLS}" | tr -d ' ') public pages and docs/URL-INVENTORY.csv"
