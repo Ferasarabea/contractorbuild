@@ -8,6 +8,7 @@ on:
       - 404.html
       - robots.txt
       - favicon.svg
+      - favicon.png
       - wp-sitemap.xml
       - services/**
       - industries/**
@@ -44,6 +45,7 @@ jobs:
           cp 404.html _site/404.html
           cp robots.txt _site/robots.txt
           cp favicon.svg _site/favicon.svg
+          cp favicon.png _site/favicon.png
           cp wp-sitemap.xml _site/wp-sitemap.xml
           cp -r services industries about accessibility contact free-marketing-audit privacy-policy resources results terms _site/
           mkdir -p _site/wp-content/themes/contractor-build/assets/js
