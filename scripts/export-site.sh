@@ -37,6 +37,7 @@ while IFS= read -r url; do
 	curl -fsS "http://127.0.0.1:${PORT}${url}" -o "${destination}"
 	python3 "${ROOT}/scripts/rewrite-static-links.py" "${destination}" "${url}"
 	python3 "${ROOT}/scripts/seo-postprocess.py" "${destination}" "${url}"
+	python3 "${ROOT}/scripts/google-search-favicon.py" "${destination}" "${url}"
 done < "${URLS}"
 
 python3 - "${ROOT}" "${URLS}" <<'PY'
