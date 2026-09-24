@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'CB_THEME_VERSION', '1.0.0' );
+define( 'CB_THEME_VERSION', '2.0.0' );
 
 function cb_theme_setup() {
 	load_theme_textdomain( 'contractor-build', get_template_directory() . '/languages' );
