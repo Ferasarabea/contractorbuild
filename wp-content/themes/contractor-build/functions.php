@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'CB_THEME_VERSION', '2.0.0' );
+define( 'CB_GA4_MEASUREMENT_ID', 'G-3QR1BNJK69' );
 
 function cb_theme_setup() {
 	load_theme_textdomain( 'contractor-build', get_template_directory() . '/languages' );
@@ -31,6 +32,22 @@ function cb_enqueue_assets() {
 	wp_enqueue_script( 'contractor-build', get_template_directory_uri() . '/assets/js/site.js', array(), CB_THEME_VERSION, true );
 }
 add_action( 'wp_enqueue_scripts', 'cb_enqueue_assets' );
+
+/** Output the site's Google Analytics 4 tag. */
+function cb_ga4_tag() {
+	$measurement_id = esc_js( CB_GA4_MEASUREMENT_ID );
+	?>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo esc_attr( CB_GA4_MEASUREMENT_ID ); ?>"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', '<?php echo $measurement_id; ?>');
+	</script>
+	<?php
+}
+add_action( 'wp_head', 'cb_ga4_tag', 1 );
 
 function cb_resource_hints( $urls, $relation_type ) {
 	if ( 'preconnect' === $relation_type ) {
