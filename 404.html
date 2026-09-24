@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <title>Page Not Found | Contractor Build</title>
+  <link rel="stylesheet" href="/wp-content/themes/contractor-build/style.css">
+  <style>
+    body{margin:0;background:#101418;color:#fff;font-family:Inter,"Helvetica Neue",Arial,sans-serif}
+    .not-found{min-height:100dvh;display:grid;place-items:center;padding:32px 20px;position:relative;overflow:hidden}
+    .not-found:before{content:"";position:absolute;inset:0;opacity:.14;background-image:linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);background-size:72px 72px}
+    .nf-card{position:relative;width:min(100%,900px);text-align:center}
+    .nf-brand{display:inline-flex;align-items:center;gap:12px;margin-bottom:55px;font-weight:750;letter-spacing:.03em}
+    .nf-mark{display:flex;width:38px;height:38px;align-items:flex-end;gap:3px;padding:8px;border:1px solid rgba(255,255,255,.35);transform:skew(-4deg);box-sizing:border-box}
+    .nf-mark i{display:block;width:5px;background:#ff5c35}.nf-mark i:nth-child(1){height:10px}.nf-mark i:nth-child(2){height:16px}.nf-mark i:nth-child(3){height:22px}
+    .nf-brand strong{color:#ff8a6d}
+    .nf-code{display:block;color:#ff5c35;font-size:.72rem;font-weight:850;letter-spacing:.18em;margin-bottom:20px}
+    h1{font-size:clamp(3.4rem,10vw,7.5rem);line-height:.92;letter-spacing:-.06em;margin:0 0 28px}
+    p{max-width:650px;margin:0 auto 38px;color:#b9c2c7;font-size:clamp(1rem,2vw,1.25rem);line-height:1.6}
+    .nf-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+    .nf-btn{display:inline-flex;min-height:54px;align-items:center;justify-content:center;padding:0 24px;border:1px solid #ff5c35;background:#ff5c35;color:#fff;font-size:.76rem;font-weight:800;letter-spacing:.07em;text-decoration:none;text-transform:uppercase}
+    .nf-btn.alt{background:transparent;border-color:rgba(255,255,255,.3)}
+    @media(max-width:600px){.nf-brand{margin-bottom:40px}.nf-actions{display:grid}.nf-btn{width:100%;box-sizing:border-box}}
+  </style>
+</head>
+<body>
+<main class="not-found">
+  <div class="nf-card">
+    <a class="nf-brand" href="/" aria-label="Contractor Build home"><span class="nf-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>CONTRACTOR <strong>BUILD</strong></span></a>
+    <span class="nf-code">404 / PAGE NOT FOUND</span>
+    <h1>This page<br>isn't built yet.</h1>
+    <p>The page you were looking for may have moved or no longer exists. Head back to Contractor Build or explore how we help contractors grow.</p>
+    <div class="nf-actions"><a class="nf-btn" href="/">Back to Home →</a><a class="nf-btn alt" href="/services/">Explore Services</a></div>
+  </div>
+</main>
+</body>
+</html>
