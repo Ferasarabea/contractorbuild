@@ -18,6 +18,10 @@ GOOGLE_TAG = f'''<!-- Google tag (gtag.js) -->
 </script>
 '''
 
+FORM_OPEN = '<form class="lead-form" action="https://formsubmit.co/contractorbuild0@gmail.com" method="POST">'
+TRACKED_FORM_OPEN = '<form class="lead-form" action="https://formsubmit.co/contractorbuild0@gmail.com" method="POST" data-cb-form="audit">'
+SUCCESS_REDIRECT = '<input type="hidden" name="_next" value="https://contractor-build.com/free-marketing-audit/?submitted=1">'
+
 
 def main() -> None:
     if len(sys.argv) != 2:
@@ -40,6 +44,13 @@ def main() -> None:
         raise SystemExit(f"missing </head> in {file}")
 
     html = html.replace("</head>", GOOGLE_TAG + "</head>", 1)
+
+    # Static GitHub Pages uses FormSubmit instead of the WordPress form handler.
+    # Mark those forms for form_start/form_submit tracking and return only
+    # successful submissions to a URL that site.js turns into audit_request.
+    if FORM_OPEN in html:
+        html = html.replace(FORM_OPEN, TRACKED_FORM_OPEN + SUCCESS_REDIRECT)
+
     file.write_text(html, encoding="utf-8")
 
 
