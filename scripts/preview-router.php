@@ -16,11 +16,13 @@ define('ABSPATH', $root . '/');
 $assets = array(
 	'/wp-content/themes/contractor-build/style.css'          => $theme . '/style.css',
 	'/wp-content/themes/contractor-build/assets/js/site.js' => $theme . '/assets/js/site.js',
+	'/wp-sitemap.xml'                                       => $root . '/wp-sitemap.xml',
 );
 
 if (isset($assets[$path])) {
 	$extension = pathinfo($assets[$path], PATHINFO_EXTENSION);
-	header('Content-Type: ' . ('css' === $extension ? 'text/css; charset=utf-8' : 'application/javascript; charset=utf-8'));
+	$content_types = array( 'css' => 'text/css; charset=utf-8', 'js' => 'application/javascript; charset=utf-8', 'xml' => 'application/xml; charset=utf-8' );
+	header('Content-Type: ' . ($content_types[$extension] ?? 'application/octet-stream'));
 	header('Cache-Control: no-store');
 	readfile($assets[$path]);
 	exit;

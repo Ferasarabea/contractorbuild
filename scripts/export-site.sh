@@ -38,5 +38,14 @@ while IFS= read -r url; do
 	python3 "${ROOT}/scripts/rewrite-static-links.py" "${destination}" "${url}"
 done < "${URLS}"
 
+python3 - "${ROOT}" "${URLS}" <<'PY'
+from pathlib import Path
+import sys
+root, source = Path(sys.argv[1]), Path(sys.argv[2])
+urls = [line.strip() for line in source.read_text().splitlines() if line.strip()]
+body = '\n'.join(f'  <url><loc>{url}</loc></url>' for url in urls)
+(root / 'wp-sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + body + '\n</urlset>\n')
+PY
+
 python3 "${ROOT}/scripts/audit-site.py" "${ROOT}" "${URLS}" "${ROOT}/docs/URL-INVENTORY.csv"
 echo "Exported $(wc -l < "${URLS}" | tr -d ' ') public pages and docs/URL-INVENTORY.csv"

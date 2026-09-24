@@ -1,89 +1,96 @@
 <?php get_header(); ?>
-<section class="hero">
-	<div class="container hero-grid">
-		<div>
-			<p class="eyebrow">Everything contractors need to grow</p>
-			<h1>Build your business. <span>Book more jobs.</span></h1>
-			<p class="lede">We help contractors generate more calls, qualified leads, and booked opportunities through high-converting websites, Google visibility, paid media, and connected growth systems.</p>
-			<div class="button-row"><a class="btn" href="<?php echo esc_url( home_url( '/free-marketing-audit/' ) ); ?>">Get my free growth plan</a><a class="btn btn--outline" href="#system">See how it works</a></div>
-			<div class="hero-proof"><span>Built for contractors</span><span>Tracking from click to job</span><span>No inflated promises</span></div>
+<section class="hero hero--premium">
+	<div class="hero-gridlines" aria-hidden="true"></div>
+	<div class="container hero-layout">
+		<div class="hero-copy reveal">
+			<p class="eyebrow eyebrow--light">THE GROWTH PARTNER FOR CONTRACTORS</p>
+			<h1>Build your business.<br><span>Book more jobs.</span></h1>
+			<p class="hero-lede">Contractor Build helps home-service and trade businesses grow through better websites, search visibility, paid media, lead generation, and automated follow-up.</p>
+			<div class="button-row"><a class="btn" href="<?php echo esc_url( home_url( '/free-marketing-audit/' ) ); ?>">Get My Free Growth Plan</a><a class="text-link text-link--light" href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Explore Our Services <span>↗</span></a></div>
+			<p class="trust-line"><span>Websites</span><i></i><span>SEO</span><i></i><span>Google</span><i></i><span>Social</span><i></i><span>Leads</span><i></i><span>Automation</span></p>
 		</div>
-		<div class="growth-panel" aria-label="Customer acquisition system illustration">
-			<div class="metric"><span class="metric-icon">G</span><span><strong>Google visibility</strong><small>Search · Maps · Local</small></span><span class="metric-status">Attract</span></div>
-			<div class="flow-arrow">↓</div>
-			<div class="metric"><span class="metric-icon">W</span><span><strong>Conversion-ready website</strong><small>Calls · Forms · Estimates</small></span><span class="metric-status">Convert</span></div>
-			<div class="flow-arrow">↓</div>
-			<div class="metric"><span class="metric-icon">CRM</span><span><strong>Lead follow-up</strong><small>Routing · SMS · Pipeline</small></span><span class="metric-status">Book</span></div>
-			<div class="flow-arrow">↓</div>
-			<div class="metric"><span class="metric-icon">↗</span><span><strong>Measurable growth</strong><small>Jobs · Revenue · Reviews</small></span><span class="metric-status">Improve</span></div>
+		<div class="growth-console reveal" aria-label="Stylized contractor marketing growth system">
+			<div class="console-top"><span><i></i> GROWTH SYSTEM LIVE</span><b>CB / 01</b></div>
+			<div class="console-search"><small>HIGH-INTENT SEARCH</small><div><span class="search-g">G</span><strong>roofing contractor near me</strong><kbd>⌕</kbd></div></div>
+			<div class="console-route"><span></span><i></i><span></span></div>
+			<div class="console-site">
+				<div class="mini-browser"><i></i><i></i><i></i><small>CONTRACTOR WEBSITE</small></div>
+				<div class="site-preview"><div><b>Roof damage?</b><small>Get a fast local inspection.</small></div><span>REQUEST ESTIMATE</span></div>
+			</div>
+			<div class="console-route"><span></span><i></i><span></span></div>
+			<div class="lead-alert"><div class="lead-icon">↗</div><div><small>NEW QUALIFIED LEAD</small><strong>Roof Replacement · Dallas, TX</strong><span>Source: Search campaign</span></div><b>NOW</b></div>
+			<div class="console-pipeline"><div><small>NEW LEAD</small><strong>OPEN</strong></div><i>→</i><div><small>ESTIMATE</small><strong>SET</strong></div><i>→</i><div class="won"><small>BOOKED</small><strong>WON</strong></div></div>
 		</div>
 	</div>
+	<div class="container hero-foot"><span>STRATEGY</span><span>CREATIVE</span><span>TECHNOLOGY</span><span>MEASUREMENT</span><b>ONE CONNECTED GROWTH TEAM</b></div>
 </section>
-<div class="trust-bar"><ul class="container trust-items"><li>Built for contractors</li><li>Data-driven marketing</li><li>Transparent reporting</li><li>Conversion-focused</li><li>Full-service growth</li></ul></div>
 
-<section class="section" id="services">
-	<div class="container">
-		<div class="section-head"><div><p class="eyebrow">One growth team</p><h2>Everything you need to grow.</h2></div><p>Stop piecing together disconnected vendors. We build the strategy, assets, campaigns, tracking, and follow-up around one goal: creating more qualified opportunities for your crews.</p></div>
-		<div class="grid grid--4">
+<section class="positioning section--rule">
+	<div class="container positioning-grid reveal">
+		<div><p class="section-index">01 / THE DIFFERENCE</p><h2>Not another<br>marketing vendor.</h2></div>
+		<div class="positioning-copy"><p class="statement">Your website company should talk to your ad team. Your ad team should understand your CRM. Your reporting should show more than traffic.</p><p>Contractor Build unifies the systems that create, capture, and convert demand—so every channel works toward the same business outcome.</p><a class="text-link" href="<?php echo esc_url( home_url( '/about/' ) ); ?>">Why Contractor Build <span>↗</span></a></div>
+		<div class="vendor-stack" aria-label="Disconnected vendors become one growth system"><span>WEB VENDOR</span><span>SEO AGENCY</span><span>AD MANAGER</span><span>CRM TOOL</span><i>↓</i><strong>CONTRACTOR BUILD</strong><small>ONE STRATEGY · ONE SCOREBOARD</small></div>
+	</div>
+</section>
+
+<section class="services-editorial" id="services">
+	<div class="container services-heading reveal"><div><p class="section-index">02 / CAPABILITIES</p><h2>Four systems.<br>One growth engine.</h2></div><p>We engineer the complete path from local attention to a booked opportunity—then measure what happens next.</p></div>
+
+	<article class="service-feature service-feature--web reveal">
+		<div class="container feature-grid"><div class="feature-copy"><span class="feature-no">01</span><p class="eyebrow">WEBSITES</p><h3>Websites built to turn traffic into jobs.</h3><p>Fast, focused WordPress experiences that make the next step obvious on every screen.</p><ul><li>Contractor websites</li><li>Landing pages</li><li>Conversion optimization</li></ul><a class="text-link" href="<?php echo esc_url( home_url( '/services/contractor-websites/' ) ); ?>">Explore Websites <span>↗</span></a></div><div class="website-visual" aria-hidden="true"><div class="browser-bar"><span></span><span></span><span></span><small>yourcontractor.com</small></div><div class="web-canvas"><div class="web-nav"></div><b>QUALITY WORK.<br>CLEAR NEXT STEPS.</b><p>Local service. Real proof. Fast estimates.</p><i>GET AN ESTIMATE</i><div class="web-proof"><span>LICENSED</span><span>LOCAL</span><span>RESPONSIVE</span></div></div><div class="phone-frame"><small>9:41</small><b>Need service?</b><span>CALL NOW</span></div></div></div>
+	</article>
+
+	<article class="service-feature service-feature--search reveal">
+		<div class="container feature-grid feature-grid--reverse"><div class="search-visual" aria-hidden="true"><div class="local-query"><span class="search-g">G</span><b>hvac repair near me</b><kbd>⌕</kbd></div><div class="map-stage"><div class="map-lines"></div><i class="pin pin--1"></i><i class="pin pin--2"></i><i class="pin pin--3"></i><div class="map-result"><small>LOCAL RESULT</small><b>Your HVAC Company</b><span>Open · Serves your area</span><em>CALL &nbsp; | &nbsp; WEBSITE</em></div></div></div><div class="feature-copy"><span class="feature-no">02</span><p class="eyebrow">SEARCH VISIBILITY</p><h3>Show up when the job is on the line.</h3><p>Technical SEO, local relevance, and a credible profile built around the services and markets that matter.</p><ul><li>Contractor SEO</li><li>Local SEO &amp; Maps</li><li>Google Business Profile</li><li>Service area strategy</li></ul><a class="text-link" href="<?php echo esc_url( home_url( '/services/contractor-seo/' ) ); ?>">Explore Search <span>↗</span></a></div></div>
+	</article>
+
+	<article class="service-feature service-feature--paid reveal">
+		<div class="container feature-grid"><div class="feature-copy"><span class="feature-no">03</span><p class="eyebrow">PAID ACQUISITION</p><h3>Buy attention with a plan to convert it.</h3><p>Intent-driven campaigns, dedicated landing experiences, and feedback from actual lead quality.</p><ul><li>Google Ads</li><li>Local Services Ads</li><li>Facebook &amp; Instagram</li><li>Retargeting</li></ul><a class="text-link" href="<?php echo esc_url( home_url( '/services/google-ads/' ) ); ?>">Explore Paid Media <span>↗</span></a></div><div class="ads-visual" aria-hidden="true"><div class="ad-preview"><small>SPONSORED · LOCAL</small><b>Built for the jobs you want.</b><p>Targeted offer. Dedicated page. Tracked response.</p><span>GET A QUOTE</span></div><div class="ad-metrics"><div><small>QUALIFIED CALLS</small><strong>TRACK</strong><i>ATTRIBUTED</i></div><div><small>FORM LEADS</small><strong>ROUTE</strong><i>CONNECTED</i></div><div><small>BOOKED JOBS</small><strong>LEARN</strong><em>CRM SYNC</em></div></div><div class="signal-lines"><i></i><i></i><i></i><i></i></div></div></div>
+	</article>
+
+	<article class="service-feature service-feature--systems reveal">
+		<div class="container feature-grid feature-grid--reverse"><div class="crm-visual" aria-hidden="true"><div class="crm-head"><span>OPPORTUNITY PIPELINE</span><small>LIVE VIEW</small></div><div class="crm-columns"><div><b>NEW LEAD</b><span><i>RS</i>Roof repair<small>Search · 2m</small></span><span><i>JM</i>AC replace<small>Website · 8m</small></span></div><div><b>ESTIMATE SET</b><span><i>AL</i>Kitchen remodel<small>Tomorrow</small></span></div><div><b>WON</b><span class="crm-won"><i>✓</i>Panel upgrade<small>Booked</small></span></div></div><div class="automation-note">AUTOMATION SENT <b>Estimate reminder · SMS</b><span>just now</span></div></div><div class="feature-copy"><span class="feature-no">04</span><p class="eyebrow">GROWTH SYSTEMS</p><h3>Make every lead easier to track and close.</h3><p>Connect the call, form, follow-up, pipeline, review request, and reporting into one operating rhythm.</p><ul><li>CRM integration</li><li>Marketing automation</li><li>Call &amp; lead tracking</li><li>Reputation &amp; analytics</li></ul><a class="text-link" href="<?php echo esc_url( home_url( '/services/marketing-automation/' ) ); ?>">Explore Growth Systems <span>↗</span></a></div></div>
+	</article>
+</section>
+
+<section class="growth-engine section--dark" id="system">
+	<div class="container reveal"><div class="engine-head"><div><p class="section-index section-index--light">03 / THE SYSTEM</p><h2>The Contractor Build<br><span>Growth Engine.</span></h2></div><p>Five connected stages. One measurable path from being discovered to building a stronger book of business.</p></div>
+		<div class="engine-track">
+			<article><span>01</span><div class="engine-icon">⌕</div><h3>Get Found</h3><p>SEO · Maps<br>Google Ads · Social</p></article><i>→</i>
+			<article><span>02</span><div class="engine-icon">↗</div><h3>Convert</h3><p>Websites · Landing Pages<br>Calls · Forms</p></article><i>→</i>
+			<article><span>03</span><div class="engine-icon">···</div><h3>Follow Up</h3><p>CRM · SMS<br>Email · Automation</p></article><i>→</i>
+			<article><span>04</span><div class="engine-icon">✓</div><h3>Book Jobs</h3><p>Lead Routing<br>Estimates · Appointments</p></article><i>→</i>
+			<article><span>05</span><div class="engine-icon">＋</div><h3>Grow</h3><p>Analytics · Reviews<br>Optimization · Expansion</p></article>
+		</div>
+		<div class="engine-signal" aria-hidden="true"><span></span></div>
+	</div>
+</section>
+
+<section class="industries-showcase" id="industries">
+	<div class="container"><div class="industries-head reveal"><div><p class="section-index">04 / INDUSTRIES</p><h2>Built around how<br>your trade actually sells.</h2></div><p>Different urgency. Different job values. Different sales cycles. Your growth system should know the difference.</p></div>
+		<div class="industry-list reveal">
 		<?php
-		$services = array(
-			array( '01', 'Contractor websites', 'Fast WordPress websites designed to turn local traffic into calls and estimate requests.', '/services/contractor-websites/' ),
-			array( '02', 'Contractor SEO', 'A practical search strategy built around the services and markets that matter to your business.', '/services/contractor-seo/' ),
-			array( '03', 'Local SEO', 'Improve local relevance across your website, Maps presence, citations, and service areas.', '/services/local-seo/' ),
-			array( '04', 'Google Ads', 'Search campaigns, landing pages, and conversion tracking focused on lead quality—not vanity clicks.', '/services/google-ads/' ),
-			array( '05', 'Local Services Ads', 'Setup, service areas, budgets, lead workflows, and ongoing performance monitoring.', '/services/local-services-ads/' ),
-			array( '06', 'Social media ads', 'Create local demand with Meta campaigns, offers, retargeting, and useful creative.', '/services/social-media-advertising/' ),
-			array( '07', 'Google Business Profile', 'Policy-safe profile, service, category, photo, post, and review strategy.', '/services/google-business-profile/' ),
-			array( '08', 'Lead generation', 'Campaigns and landing pages engineered around qualified calls and forms.', '/services/lead-generation/' ),
-			array( '09', 'Reputation management', 'Build consistent, legitimate review-request and customer-feedback workflows.', '/services/reputation-management/' ),
-			array( '10', 'Marketing automation', 'Connect leads to fast SMS, email, routing, reminders, and pipeline visibility.', '/services/marketing-automation/' ),
-			array( '11', 'Analytics & tracking', 'Know which channels create calls, forms, appointments, and sales opportunities.', '/services/analytics-tracking/' ),
-			array( '12', 'Branding & content', 'A credible identity, useful content, and campaign creative that earn attention.', '/services/branding/' ),
+		$industries = array(
+			'Locksmiths' => 'locksmith-marketing', 'Roofers' => 'roofing-marketing', 'HVAC' => 'hvac-marketing', 'Plumbers' => 'plumber-marketing', 'Electricians' => 'electrician-marketing', 'General Contractors' => 'general-contractor-marketing', 'Remodelers' => 'remodeling-marketing', 'Painters' => 'painting-marketing', 'Landscapers' => 'landscaping-marketing', 'Garage Door' => 'garage-door-marketing', 'Pest Control' => 'pest-control-marketing', 'Cleaning Companies' => 'cleaning-company-marketing', 'Moving Companies' => 'moving-company-marketing', 'Restoration' => 'restoration-marketing', 'Concrete' => 'concrete-marketing', 'Flooring' => 'flooring-marketing', 'Solar' => 'solar-contractor-marketing', 'Pool Companies' => 'pool-company-marketing', 'Fencing' => 'fencing-marketing',
 		);
-		foreach ( $services as $service ) : ?>
-			<article class="card"><span class="card-number"><?php echo esc_html( $service[0] ); ?></span><h3><?php echo esc_html( $service[1] ); ?></h3><p><?php echo esc_html( $service[2] ); ?></p><a class="card-link" href="<?php echo esc_url( home_url( $service[3] ) ); ?>">Explore service →</a></article>
-		<?php endforeach; ?>
+		$i = 0; foreach ( $industries as $label => $slug ) : $i++; ?>
+		<a href="<?php echo esc_url( home_url( '/industries/' . $slug . '/' ) ); ?>"><small><?php echo esc_html( str_pad( (string) $i, 2, '0', STR_PAD_LEFT ) ); ?></small><span><?php echo esc_html( $label ); ?></span><i>↗</i></a>
+		<?php endforeach; ?><a class="industry-all" href="<?php echo esc_url( home_url( '/industries/' ) ); ?>"><small>20</small><span>Other Home Services</span><i>↗</i></a>
 		</div>
 	</div>
 </section>
 
-<section class="section section--dark" id="system">
-	<div class="container system-grid">
-		<div><p class="eyebrow">One connected system</p><h2>Your entire marketing operation under one roof.</h2><p class="muted">One team owns the journey from first impression to follow-up. That means your website, SEO, ads, landing pages, tracking, and CRM stop working against each other.</p><a class="btn" href="<?php echo esc_url( home_url( '/about/' ) ); ?>">Meet your growth team</a></div>
-		<div><p>Instead of five vendors and five versions of the truth, build one measurable acquisition system.</p><div class="pipeline"><span>Traffic</span><i>→</i><span>Website</span><i>→</i><span>Lead</span><i>→</i><span>CRM</span><i>→</i><span>Booked job</span><i>→</i><span>Revenue</span></div></div>
+<section class="proof-section">
+	<div class="container proof-layout reveal"><div class="proof-label"><p class="section-index section-index--light">05 / RESULTS</p><span>VERIFIED WORK ONLY</span></div><div class="proof-content"><p class="eyebrow eyebrow--light">CASE STUDIES</p><h2>Proof over promises.</h2><p>We never publish invented lead counts, rankings, ROAS, or revenue. Our case-study framework is ready for verified client stories—with the challenge, system, timeline, and source-backed results shown in context.</p><div class="proof-system"><span>THE CHALLENGE</span><i>→</i><span>THE SYSTEM</span><i>→</i><span>VERIFIED RESULTS</span></div><a class="btn btn--outline" href="<?php echo esc_url( home_url( '/results/' ) ); ?>">Explore the Results Framework</a></div><div class="proof-watermark">CB</div></div>
+</section>
+
+<section class="process-section">
+	<div class="container"><div class="process-head reveal"><div><p class="section-index">06 / PROCESS</p><h2>Built to move.<br>Designed to improve.</h2></div><p>A clear operating rhythm keeps strategy connected to what your crews and sales team can actually handle.</p></div>
+		<ol class="process-line reveal"><li><span>01</span><b>Audit</b><p>Find the gaps and constraints.</p></li><li><span>02</span><b>Strategy</b><p>Prioritize the right channels.</p></li><li><span>03</span><b>Build</b><p>Create the system and assets.</p></li><li><span>04</span><b>Launch</b><p>Activate with clean tracking.</p></li><li><span>05</span><b>Optimize</b><p>Improve using lead quality.</p></li><li><span>06</span><b>Scale</b><p>Invest where evidence leads.</p></li></ol>
 	</div>
 </section>
 
-<section class="section">
-	<div class="container split">
-		<div class="visual-card"><p class="eyebrow">Conversion-ready</p><h2>Built for the way customers hire.</h2><div class="search-box">Roof repair near me <strong style="float:right">⌕</strong></div><div class="search-results"><small>contractor-build.com/service-area</small><strong style="display:block">A clear answer. A trusted contractor. An easy next step.</strong></div></div>
-		<div><p class="eyebrow">Contractor websites</p><h2>A website built to generate calls.</h2><p>Your website should do more than look good. We plan the page structure, message, search foundation, mobile experience, and conversion paths around how homeowners actually choose a contractor.</p><ul class="feature-list"><li>Custom WordPress development</li><li>Mobile-first UX</li><li>Service and location pages</li><li>Technical SEO foundation</li><li>Call and form tracking</li><li>CRM integrations</li><li>Speed and image optimization</li><li>Accessible, secure code</li></ul><a class="btn btn--dark" href="<?php echo esc_url( home_url( '/services/contractor-websites/' ) ); ?>">Build my website</a></div>
-	</div>
-</section>
-
-<section class="section section--mist">
-	<div class="container split">
-		<div><p class="eyebrow">Search visibility</p><h2>Get found when customers need you.</h2><p>We connect technical SEO, useful service content, local relevance, internal links, and a credible Google Business Profile into one long-term visibility strategy.</p><ul class="feature-list"><li>Contractor and local SEO</li><li>Keyword and competitor research</li><li>Google Maps visibility</li><li>Service-area strategy</li><li>On-page optimization</li><li>Search Console reporting</li></ul><a class="btn btn--dark" href="<?php echo esc_url( home_url( '/services/contractor-seo/' ) ); ?>">Improve my visibility</a></div>
-		<div class="card"><span class="card-number">SEARCH JOURNEY</span><h3>Turn high-intent searches into real opportunities.</h3><div class="funnel"><span>Google search</span><i>→</i><span>Your service page</span><i>→</i><span>Call or form</span><i>→</i><span>Booked estimate</span></div><p>Every step is measured so strategy is based on performance—not guesswork.</p></div>
-	</div>
-</section>
-
-<section class="section section--dark">
-	<div class="container">
-		<div class="section-head"><div><p class="eyebrow">Paid acquisition</p><h2>Ads focused on leads—not clicks.</h2></div><p>We plan search and social campaigns around geography, intent, offers, conversion paths, and lead quality. No guaranteed outcomes. Just disciplined testing, transparent measurement, and ongoing optimization.</p></div>
-		<div class="grid grid--3"><article class="card"><span class="card-number">GOOGLE</span><h3>Capture existing demand</h3><p>Search campaigns, negative keywords, geo targeting, call tracking, landing pages, remarketing, and budget optimization.</p><a class="card-link" href="<?php echo esc_url( home_url( '/services/google-ads/' ) ); ?>">Launch Google Ads →</a></article><article class="card"><span class="card-number">META</span><h3>Create local demand</h3><p>Facebook and Instagram offers, local audience targeting, lead forms, useful creative, and retargeting.</p><a class="card-link" href="<?php echo esc_url( home_url( '/services/social-media-advertising/' ) ); ?>">Explore social ads →</a></article><article class="card"><span class="card-number">LOCAL</span><h3>Own your local presence</h3><p>Legitimate profile optimization, local pages, review strategy, category alignment, citations, and content.</p><a class="card-link" href="<?php echo esc_url( home_url( '/services/google-business-profile/' ) ); ?>">Improve Maps visibility →</a></article></div>
-	</div>
-</section>
-
-<section class="section">
-	<div class="container"><div class="section-head"><div><p class="eyebrow">From click to customer</p><h2>We build beyond the lead.</h2></div><p>Marketing does not stop when a form is submitted. Fast follow-up, clear routing, pipeline tracking, and review requests help your team make more of every opportunity.</p></div><div class="funnel"><span>Google / Meta / Maps</span><i>→</i><span>Website</span><i>→</i><span>Call / form</span><i>→</i><span>CRM</span><i>→</i><span>Follow-up</span><i>→</i><span>Booked job</span><i>→</i><span>Review / referral</span></div></div>
-</section>
-
-<section class="section section--mist">
-	<div class="container"><div class="section-head"><div><p class="eyebrow">A practical process</p><h2>Clear steps. Shared numbers.</h2></div></div><div class="grid grid--5" style="grid-template-columns:repeat(5,1fr)"><?php foreach ( array( 'Audit' => 'We analyze the market, visibility, website, campaigns, and lead flow.', 'Build' => 'We create the assets, tracking, and infrastructure the strategy needs.', 'Launch' => 'Campaigns go live with deliberate targeting and conversion paths.', 'Optimize' => 'We study calls, forms, quality, cost, and conversion performance.', 'Scale' => 'Investment moves toward the channels creating measurable opportunity.' ) as $number => $copy ) : static $i = 0; $i++; ?><article class="step"><strong>0<?php echo esc_html( $i ); ?></strong><h3><?php echo esc_html( $number ); ?></h3><p><?php echo esc_html( $copy ); ?></p></article><?php endforeach; ?></div></div>
-</section>
-
-<section class="section" id="industries">
-	<div class="container split"><div><p class="eyebrow">Built for local service businesses</p><h2>Strategy shaped around your trade.</h2><p>Roofers do not sell like plumbers. Emergency services do not generate demand like remodeling. Our industry pages and campaigns are built around different sales cycles, search behavior, job values, service areas, and customer concerns.</p><a class="btn btn--dark" href="<?php echo esc_url( home_url( '/industries/' ) ); ?>">View industries served</a></div><div class="grid grid--3"><?php foreach ( array( 'Roofing', 'HVAC', 'Plumbing', 'Electrical', 'Remodeling', 'Landscaping', 'Concrete', 'Restoration', 'Garage Door' ) as $industry ) : ?><div class="card"><h3><?php echo esc_html( $industry ); ?></h3></div><?php endforeach; ?></div></div>
+<section class="audit-panel">
+	<div class="container audit-layout reveal"><div class="audit-copy"><p class="section-index section-index--light">07 / FREE AUDIT</p><h2>Find out what’s holding your growth back.</h2><p>We’ll review your website, search visibility, advertising, local presence, tracking, and lead follow-up to identify your biggest opportunities.</p><a class="btn" href="<?php echo esc_url( home_url( '/free-marketing-audit/' ) ); ?>">Get My Free Marketing Audit</a></div><div class="audit-checklist"><div class="scan-line" aria-hidden="true"></div><?php foreach ( array( 'Website', 'SEO', 'Google Maps', 'Google Ads', 'Social Ads', 'Lead Tracking', 'Reviews', 'Competitors' ) as $item ) : ?><span><i>✓</i><?php echo esc_html( $item ); ?><b>REVIEW</b></span><?php endforeach; ?></div></div>
 </section>
 <?php get_footer(); ?>

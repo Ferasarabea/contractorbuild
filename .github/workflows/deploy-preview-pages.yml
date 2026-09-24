@@ -37,6 +37,7 @@ jobs:
           ./scripts/export-site.sh
           mkdir -p _site
           cp index.html _site/index.html
+          cp wp-sitemap.xml _site/wp-sitemap.xml
           cp -r services industries about accessibility contact free-marketing-audit privacy-policy resources results terms _site/
           mkdir -p _site/wp-content/themes/contractor-build/assets/js
           cp wp-content/themes/contractor-build/style.css _site/wp-content/themes/contractor-build/style.css

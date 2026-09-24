@@ -59,6 +59,7 @@ for url in urls:
         target = urlparse(urljoin("https://preview.invalid" + url, link)).path or "/"
         if not target.endswith("/") and "." not in Path(target).name: target += "/"
         if target.startswith("/wp-content/"): continue
+        if "." in Path(target).name and (root / target.lstrip("/")).exists(): continue
         if target not in url_set: broken.append(target)
     if broken: errors.append(f"{url}: {', '.join(sorted(set(broken)))}")
     words = len(" ".join(parser.text).split())
@@ -66,7 +67,7 @@ for url in urls:
 
 output.parent.mkdir(parents=True, exist_ok=True)
 with output.open("w", newline="") as handle:
-    writer = csv.writer(handle)
+    writer = csv.writer(handle, lineterminator="\n")
     writer.writerow(["PAGE", "STATUS", "TITLE", "H1", "META DESCRIPTION", "CONTENT COMPLETE?", "INTERNAL LINKS?", "CTA?", "SCHEMA?", "INDEXABLE?", "WORD COUNT", "BROKEN INTERNAL LINKS"])
     writer.writerows(rows)
 
