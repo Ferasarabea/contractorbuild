@@ -6,6 +6,7 @@ on:
     paths:
       - index.html
       - 404.html
+      - wp-sitemap.xml
       - services/**
       - industries/**
       - wp-content/**
