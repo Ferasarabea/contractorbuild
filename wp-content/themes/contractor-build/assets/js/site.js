@@ -16,6 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // FormSubmit redirects here only after a successful audit request. Track the
+  // conversion on the return page rather than on the submit click so failed or
+  // abandoned submissions do not become Google Ads conversion signals.
+  const currentUrl = new URL(window.location.href);
+  if (currentUrl.searchParams.get('submitted') === '1') {
+    trackEvent('audit_request', { form_name: 'audit' });
+    currentUrl.searchParams.delete('submitted');
+    const cleanUrl = currentUrl.pathname + (currentUrl.search ? currentUrl.search : '') + currentUrl.hash;
+    window.history.replaceState({}, document.title, cleanUrl);
+  }
+
   const closeNavigation = () => {
     menuButton?.setAttribute('aria-expanded', 'false');
     nav?.classList.remove('is-open');
@@ -85,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     form.addEventListener('submit', () => {
       trackEvent('form_submit', { form_name: form.dataset.cbForm });
-      if (form.dataset.cbForm === 'audit') trackEvent('audit_request', { form_name: form.dataset.cbForm });
     });
   });
 });
