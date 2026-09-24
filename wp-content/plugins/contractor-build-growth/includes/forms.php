@@ -55,7 +55,7 @@ function cbg_handle_audit() {
 	$fields = array( 'name', 'company', 'email', 'phone', 'website', 'profile_url', 'primary_service', 'service_area', 'budget', 'channels', 'problem', 'landing_page', 'referrer', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term' );
 	$lead = array();
 	foreach ( $fields as $field ) { $lead[ $field ] = isset( $_POST[ $field ] ) ? sanitize_textarea_field( wp_unslash( $_POST[ $field ] ) ) : ''; }
-	$recipient = get_option( 'cbg_lead_email', get_option( 'admin_email' ) );
+	$recipient = 'cotractorbuild0@gmail.com';
 	wp_mail( $recipient, 'New Contractor Build audit request: ' . $lead['company'], cbg_format_lead_email( $lead ), array( 'Content-Type: text/plain; charset=UTF-8', 'Reply-To: ' . $lead['name'] . ' <' . $email . '>' ) );
 	$webhook = esc_url_raw( get_option( 'cbg_webhook_url', '' ) );
 	if ( $webhook ) { wp_remote_post( $webhook, array( 'timeout' => 5, 'headers' => array( 'Content-Type' => 'application/json' ), 'body' => wp_json_encode( $lead ) ) ); }
