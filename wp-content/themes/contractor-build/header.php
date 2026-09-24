@@ -5,6 +5,52 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php wp_head(); ?>
+	<style id="cb-mobile-nav-fix">
+		@media (max-width: 900px) {
+			.site-header {
+				-webkit-backdrop-filter: none !important;
+				backdrop-filter: none !important;
+				background: #101418 !important;
+			}
+			.primary-nav {
+				position: fixed !important;
+				top: 76px !important;
+				right: 0 !important;
+				bottom: auto !important;
+				left: 0 !important;
+				width: 100vw !important;
+				height: calc(100dvh - 76px) !important;
+				min-height: calc(100vh - 76px) !important;
+				max-height: calc(100dvh - 76px) !important;
+				overflow-x: hidden !important;
+				overflow-y: auto !important;
+				overscroll-behavior: contain;
+				-webkit-overflow-scrolling: touch;
+				background: #101418 !important;
+				z-index: 999;
+			}
+			.primary-nav .nav-list {
+				display: block !important;
+				width: 100%;
+			}
+			.primary-nav .nav-list > li {
+				display: block !important;
+			}
+			.menu-toggle {
+				position: relative;
+				z-index: 1001;
+			}
+		}
+		@media (max-width: 600px) {
+			.primary-nav {
+				top: 68px !important;
+				height: calc(100dvh - 68px) !important;
+				min-height: calc(100vh - 68px) !important;
+				max-height: calc(100dvh - 68px) !important;
+				padding: 24px 20px 92px !important;
+			}
+		}
+	</style>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
