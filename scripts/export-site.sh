@@ -38,6 +38,7 @@ while IFS= read -r url; do
 	python3 "${ROOT}/scripts/rewrite-static-links.py" "${destination}" "${url}"
 	python3 "${ROOT}/scripts/seo-postprocess.py" "${destination}" "${url}"
 	python3 "${ROOT}/scripts/google-search-favicon.py" "${destination}" "${url}"
+	python3 "${ROOT}/scripts/analytics-postprocess.py" "${destination}"
 done < "${URLS}"
 
 python3 - "${ROOT}" "${URLS}" <<'PY'
