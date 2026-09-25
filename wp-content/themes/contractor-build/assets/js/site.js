@@ -16,6 +16,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // Keep a direct-call conversion path visible throughout the site while
+  // preserving the Growth Plan button as the primary form-based CTA.
+  const phoneDisplay = '210-550-6890';
+  const phoneHref = 'tel:+12105506890';
+
+  document.querySelectorAll('.nav-audit').forEach((link) => {
+    link.href = phoneHref;
+    link.textContent = `Call ${phoneDisplay}`;
+    link.setAttribute('aria-label', `Call Contractor Build at ${phoneDisplay}`);
+  });
+
+  document.querySelectorAll('.footer-email').forEach((link) => {
+    link.href = phoneHref;
+    link.innerHTML = `CALL ${phoneDisplay} <span>↗</span>`;
+    link.setAttribute('aria-label', `Call Contractor Build at ${phoneDisplay}`);
+  });
+
+  document.querySelectorAll('.mobile-cta').forEach((link) => {
+    link.href = phoneHref;
+    link.innerHTML = `Call ${phoneDisplay} <span>→</span>`;
+    link.setAttribute('aria-label', `Call Contractor Build at ${phoneDisplay}`);
+  });
+
+  if (/\/contact\/?$/.test(window.location.pathname)) {
+    const contactCard = document.querySelector('.entry-content .card');
+    if (contactCard) {
+      contactCard.innerHTML = `<p><strong>Call:</strong> <a href="${phoneHref}">${phoneDisplay}</a><br><strong>Email:</strong> <a href="mailto:contractorbuild0@gmail.com">contractorbuild0@gmail.com</a></p><p>Prefer to send details first? Use the form below and our team will review your request.</p>`;
+    }
+  }
+
   // FormSubmit redirects here only after a successful audit request. Track the
   // conversion on the return page rather than on the submit click so failed or
   // abandoned submissions do not become Google Ads conversion signals.
@@ -81,7 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
-    link.addEventListener('click', () => trackEvent('phone_click', { link_url: link.href }));
+    link.addEventListener('click', () => trackEvent('phone_click', {
+      link_url: link.href,
+      phone_number: phoneDisplay
+    }));
   });
   document.querySelectorAll('a[href^="mailto:"]').forEach((link) => {
     link.addEventListener('click', () => trackEvent('email_click', { link_url: link.href }));
