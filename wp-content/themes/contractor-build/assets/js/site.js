@@ -110,6 +110,16 @@ document.addEventListener('DOMContentLoaded', () => {
     reveals.forEach((element) => observer.observe(element));
   }
 
+  // Keep audit CTAs reliable on both the production domain and the GitHub project Pages preview.
+  document.querySelectorAll('a[href*="free-marketing-audit"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const isGithubProjectPreview = window.location.hostname === 'ferasarabea.github.io';
+      const destination = isGithubProjectPreview ? '/contractorbuild/free-marketing-audit/' : '/free-marketing-audit/';
+      event.preventDefault();
+      window.location.assign(destination);
+    });
+  });
+
   document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
     link.addEventListener('click', () => trackEvent('phone_click', {
       link_url: link.href,
