@@ -6,7 +6,8 @@
 			<p class="eyebrow eyebrow--light">THE GROWTH PARTNER FOR CONTRACTORS</p>
 			<h1>Build your business.<br><span>Book more jobs.</span></h1>
 			<p class="hero-lede">Contractor Build helps home-service and trade businesses grow through better websites, search visibility, paid media, lead generation, and automated follow-up.</p>
-			<div class="button-row"><a class="btn" href="<?php echo esc_url( home_url( '/free-marketing-audit/' ) ); ?>">Get My Free Growth Plan</a><a class="text-link text-link--light" href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Explore Our Services <span>↗</span></a></div>
+			<div class="button-row"><a class="btn" href="<?php echo esc_url( home_url( '/google-ads-free-trial/' ) ); ?>">Get My 30-Day Management Trial</a><a class="text-link text-link--light" href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Explore Our Services <span>↗</span></a></div>
+			<p class="hero-lede">Google Ads management free for 30 days. You pay your ad spend directly to Google. <a href="<?php echo esc_url( home_url( '/google-ads-free-trial/' ) ); ?>">See what’s included and the trial terms</a>.</p>
 			<p class="trust-line"><span>Websites</span><i></i><span>SEO</span><i></i><span>Google</span><i></i><span>Social</span><i></i><span>Leads</span><i></i><span>Automation</span></p>
 		</div>
 		<div class="growth-console reveal" aria-label="Stylized contractor marketing growth system">

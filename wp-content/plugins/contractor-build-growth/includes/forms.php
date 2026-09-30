@@ -36,6 +36,11 @@ function cbg_audit_form_shortcode() {
 }
 add_shortcode( 'contractor_build_audit_form', 'cbg_audit_form_shortcode' );
 
+function cbg_trial_form_shortcode() {
+	return str_replace( array( 'Get my free audit', 'Biggest marketing problem *' ), array( 'Request my 30-day trial', 'What would you like to improve with Google Ads? *' ), cbg_audit_form_shortcode() );
+}
+add_shortcode( 'contractor_build_trial_form', 'cbg_trial_form_shortcode' );
+
 function cbg_current_url() {
 	$scheme = is_ssl() ? 'https://' : 'http://';
 	return $scheme . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ?? '' ) ) . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ?? '' ) );

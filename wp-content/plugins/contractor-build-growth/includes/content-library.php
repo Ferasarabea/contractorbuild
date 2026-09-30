@@ -116,6 +116,7 @@ function cbg_render_service_content( $data ) {
 		array( 'Can this work with our existing website and systems?', 'Often, yes. We audit what is already useful, identify integration constraints, and recommend replacement only when the evidence supports it.' ),
 	);
 	$html = '<h2>What this service solves</h2><p>' . esc_html( $data['tagline'] ) . ' Contractor Build approaches the work as part of the complete customer-acquisition system, so the message, traffic source, conversion experience, tracking, and follow-up support the same business goal.</p>';
+	if ( $data['title'] === 'Google Ads Management' ) { $html .= '<h2>Google Ads Management Free for 30 Days</h2><p>Try our management service with no management fee for your first 30 days. You pay your ad spend directly to Google. Ongoing pricing is provided before the trial starts, and continuing requires your agreement.</p><p><a href="/google-ads-free-trial/">Request your 30-day management trial and view terms</a></p>'; }
 	$html .= cbg_html_list( $data['problems'] );
 	$html .= '<h2>What is included</h2>' . cbg_html_list( $data['included'] );
 	$html .= '<h2>Our contractor-first process</h2><p>' . esc_html( $data['process'] ) . '</p>';
