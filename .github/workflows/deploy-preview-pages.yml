@@ -47,7 +47,7 @@ jobs:
           cp favicon.svg _site/favicon.svg
           cp favicon.png _site/favicon.png
           cp wp-sitemap.xml _site/wp-sitemap.xml
-          cp -r services industries about accessibility contact free-marketing-audit privacy-policy resources results terms _site/
+          cp -r google-ads-free-trial services industries about accessibility contact free-marketing-audit privacy-policy resources results terms _site/
           mkdir -p _site/wp-content/themes/contractor-build/assets/js
           cp wp-content/themes/contractor-build/style.css _site/wp-content/themes/contractor-build/style.css
           cp wp-content/themes/contractor-build/assets/js/site.js _site/wp-content/themes/contractor-build/assets/js/site.js

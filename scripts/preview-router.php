@@ -69,6 +69,8 @@ function cb_preview_audit_form(): string {
 }
 
 function cb_preview_content(string $content): string {
+	$trial_form = str_replace(array('New Contractor Build marketing audit request', 'Get my free audit', 'Biggest growth challenge *'), array('New Contractor Build 30-day Google Ads management trial request', 'Request my 30-day trial', 'What would you like to improve with Google Ads? *'), cb_preview_audit_form());
+	$content = str_replace('[contractor_build_trial_form]', $trial_form, $content);
 	$content = str_replace('[contractor_build_audit_form]', cb_preview_audit_form(), $content);
 	$content = str_replace('[contractor_build_contact_details]', '<div class="card"><p>Phone, email, address, and social profiles appear here only after an administrator configures them.</p></div>', $content);
 	$content = str_replace('[contractor_build_case_studies]', '<div class="card"><h3>No verified case studies are published yet.</h3><p>The template is ready; unverified metrics and client claims remain unpublished.</p></div>', $content);
