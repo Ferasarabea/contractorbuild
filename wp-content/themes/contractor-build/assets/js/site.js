@@ -127,8 +127,63 @@ document.addEventListener('DOMContentLoaded', () => {
         trackEvent('form_start', { form_name: form.dataset.cbForm });
       }
     });
-    form.addEventListener('submit', () => {
+    if (!form.action.startsWith('https://formsubmit.co/')) return;
+    const panel = document.createElement('div');
+    panel.className = 'field--full';
+    panel.setAttribute('role', 'status');
+    panel.setAttribute('aria-live', 'polite');
+    form.append(panel);
+    let submitting = false;
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (submitting || !form.reportValidity()) return;
+      submitting = true;
+      const button = form.querySelector('[type="submit"]');
+      const originalLabel = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Sending…';
+      panel.replaceChildren();
+      panel.textContent = 'Sending your request…';
       trackEvent('form_submit', { form_name: form.dataset.cbForm });
+      const data = Object.fromEntries(new FormData(form));
+      delete data._next;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+      try {
+        const response = await fetch(form.action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/'), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data),
+          signal: controller.signal
+        });
+        if (!response.ok) throw new Error('Delivery failed');
+        const result = await response.json();
+        if (result.success !== true && result.success !== 'true') throw new Error('Delivery not confirmed');
+        panel.textContent = 'Thank you! Your request was accepted. Our team will contact you about the next step.';
+        trackEvent('audit_request', { form_name: form.dataset.cbForm });
+        form.reset();
+      } catch {
+        panel.replaceChildren();
+        const message = document.createElement('p');
+        message.textContent = 'We could not confirm delivery. Your details are still here. You can email your request below—review the draft and press Send in your email app—or call 210-550-6890.';
+        const email = document.createElement('a');
+        email.className = 'btn btn--dark';
+        email.textContent = 'Email my request';
+        const body = Object.entries(data).filter(([key]) => !key.startsWith('_')).map(([key, value]) => `${key.replaceAll('_', ' ')}: ${value}`).join('\n') + `\n\nPage: ${window.location.origin}${window.location.pathname}`;
+        email.href = `mailto:contractorbuild0@gmail.com?subject=${encodeURIComponent(data._subject || 'Contractor Build inquiry')}&body=${encodeURIComponent(body)}`;
+        email.addEventListener('click', () => trackEvent('email_click', { form_name: form.dataset.cbForm }));
+        const call = document.createElement('a');
+        call.href = phoneHref;
+        call.textContent = ' Call 210-550-6890';
+        call.addEventListener('click', () => trackEvent('phone_click', { form_name: form.dataset.cbForm }));
+        panel.append(message, email, call);
+        trackEvent('form_error', { form_name: form.dataset.cbForm });
+      } finally {
+        clearTimeout(timeout);
+        submitting = false;
+        button.disabled = false;
+        button.textContent = originalLabel;
+      }
     });
   });
 });
