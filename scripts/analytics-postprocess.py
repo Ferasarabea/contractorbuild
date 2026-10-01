@@ -18,9 +18,8 @@ GOOGLE_TAG = f'''<!-- Google tag (gtag.js) -->
 </script>
 '''
 
-FORM_OPEN = '<form class="lead-form" action="https://formsubmit.co/contractorbuild0@gmail.com" method="POST">'
-TRACKED_FORM_OPEN = '<form class="lead-form" action="https://formsubmit.co/contractorbuild0@gmail.com" method="POST" data-cb-form="audit">'
-SUCCESS_REDIRECT = '<input type="hidden" name="_next" value="https://contractor-build.com/free-marketing-audit/?submitted=1">'
+FORM_OPEN = '<form class="lead-form" action="https://formspree.io/f/xoevbrbv" method="POST">'
+TRACKED_FORM_OPEN = '<form class="lead-form" action="https://formspree.io/f/xoevbrbv" method="POST" data-cb-form="audit">'
 
 
 def main() -> None:
@@ -45,11 +44,10 @@ def main() -> None:
 
     html = html.replace("</head>", GOOGLE_TAG + "</head>", 1)
 
-    # Static GitHub Pages uses FormSubmit instead of the WordPress form handler.
-    # Mark those forms for form_start/form_submit tracking and return only
-    # successful submissions to a URL that site.js turns into audit_request.
+    # Mark the static Formspree forms for tracking. site.js records audit_request
+    # only after Formspree confirms acceptance.
     if FORM_OPEN in html:
-        html = html.replace(FORM_OPEN, TRACKED_FORM_OPEN + SUCCESS_REDIRECT)
+        html = html.replace(FORM_OPEN, TRACKED_FORM_OPEN)
 
     file.write_text(html, encoding="utf-8")
 

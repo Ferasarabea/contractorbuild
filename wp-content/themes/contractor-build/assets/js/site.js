@@ -127,7 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
         trackEvent('form_start', { form_name: form.dataset.cbForm });
       }
     });
-    if (!form.action.startsWith('https://formsubmit.co/')) return;
+    const usesFormspree = form.action.startsWith('https://formspree.io/f/');
+    if (!usesFormspree && !form.action.startsWith('https://formsubmit.co/')) return;
     const panel = document.createElement('div');
     panel.className = 'field--full';
     panel.setAttribute('role', 'status');
@@ -147,10 +148,15 @@ document.addEventListener('DOMContentLoaded', () => {
       trackEvent('form_submit', { form_name: form.dataset.cbForm });
       const data = Object.fromEntries(new FormData(form));
       delete data._next;
+      if (usesFormspree) {
+        data.subject = data.subject || data._subject || 'Contractor Build inquiry';
+        delete data._subject;
+        delete data._template;
+      }
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 15000);
       try {
-        const response = await fetch(form.action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/'), {
+        const response = await fetch(usesFormspree ? form.action : form.action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(data),
@@ -158,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         if (!response.ok) throw new Error('Delivery failed');
         const result = await response.json();
-        if (result.success !== true && result.success !== 'true') throw new Error('Delivery not confirmed');
+        if (usesFormspree ? result.ok !== true : (result.success !== true && result.success !== 'true')) throw new Error('Delivery not confirmed');
         panel.textContent = 'Thank you! Your request was accepted. Our team will contact you about the next step.';
         trackEvent('audit_request', { form_name: form.dataset.cbForm });
         form.reset();
@@ -170,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         email.className = 'btn btn--dark';
         email.textContent = 'Email my request';
         const body = Object.entries(data).filter(([key]) => !key.startsWith('_')).map(([key, value]) => `${key.replaceAll('_', ' ')}: ${value}`).join('\n') + `\n\nPage: ${window.location.origin}${window.location.pathname}`;
-        email.href = `mailto:contractorbuild0@gmail.com?subject=${encodeURIComponent(data._subject || 'Contractor Build inquiry')}&body=${encodeURIComponent(body)}`;
+        email.href = `mailto:contractorbuild0@gmail.com?subject=${encodeURIComponent(data.subject || data._subject || 'Contractor Build inquiry')}&body=${encodeURIComponent(body)}`;
         email.addEventListener('click', () => trackEvent('email_click', { form_name: form.dataset.cbForm }));
         const call = document.createElement('a');
         call.href = phoneHref;
