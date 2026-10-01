@@ -46,15 +46,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // FormSubmit redirects here only after a successful audit request. Track the
-  // conversion on the return page rather than on the submit click so failed or
-  // abandoned submissions do not become Google Ads conversion signals.
-  const currentUrl = new URL(window.location.href);
-  if (currentUrl.searchParams.get('submitted') === '1') {
-    trackEvent('audit_request', { form_name: 'audit' });
-    currentUrl.searchParams.delete('submitted');
-    const cleanUrl = currentUrl.pathname + (currentUrl.search ? currentUrl.search : '') + currentUrl.hash;
-    window.history.replaceState({}, document.title, cleanUrl);
+  // Google forwards eligible ad visitors' calls to the existing business number.
+  // Update both the displayed number and the dial target, including fallback links.
+  let activePhoneDisplay = phoneDisplay;
+  let activePhoneHref = phoneHref;
+  if (typeof window.gtag === 'function') {
+    window.gtag('config', 'AW-18142369282/oTVfCM6ur4wdEIKs-spD', {
+      phone_conversion_number: phoneDisplay,
+      phone_conversion_callback: (formattedNumber, dialNumber) => {
+        activePhoneDisplay = formattedNumber;
+        activePhoneHref = 'tel:' + dialNumber;
+        document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
+          if (link.getAttribute('href').replace(/\D/g, '') !== '12105506890' &&
+              link.getAttribute('href').replace(/\D/g, '') !== '2105506890') return;
+          link.href = activePhoneHref;
+          const walker = document.createTreeWalker(link, NodeFilter.SHOW_TEXT);
+          let textNode;
+          while ((textNode = walker.nextNode())) {
+            textNode.textContent = textNode.textContent.replace(phoneDisplay, formattedNumber);
+          }
+          if (link.hasAttribute('aria-label')) {
+            link.setAttribute('aria-label', link.getAttribute('aria-label').replace(phoneDisplay, formattedNumber));
+          }
+        });
+      }
+    });
   }
 
   const closeNavigation = () => {
@@ -167,6 +183,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (usesFormspree ? result.ok !== true : (result.success !== true && result.success !== 'true')) throw new Error('Delivery not confirmed');
         panel.textContent = 'Thank you! Your request was accepted. Our team will contact you about the next step.';
         trackEvent('audit_request', { form_name: form.dataset.cbForm });
+        // Fire Ads only after the provider confirms receipt, never on a submit click.
+        trackEvent('conversion', { send_to: 'AW-18142369282/eldHCKndqIwdEIKs-spD' });
         form.reset();
       } catch {
         panel.replaceChildren();
@@ -179,8 +197,8 @@ document.addEventListener('DOMContentLoaded', () => {
         email.href = `mailto:contractorbuild0@gmail.com?subject=${encodeURIComponent(data.subject || data._subject || 'Contractor Build inquiry')}&body=${encodeURIComponent(body)}`;
         email.addEventListener('click', () => trackEvent('email_click', { form_name: form.dataset.cbForm }));
         const call = document.createElement('a');
-        call.href = phoneHref;
-        call.textContent = ' Call 210-550-6890';
+        call.href = activePhoneHref;
+        call.textContent = ` Call ${activePhoneDisplay}`;
         call.addEventListener('click', () => trackEvent('phone_click', { form_name: form.dataset.cbForm }));
         panel.append(message, email, call);
         trackEvent('form_error', { form_name: form.dataset.cbForm });

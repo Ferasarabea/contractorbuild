@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 MEASUREMENT_ID = "G-3QR1BNJK69"
+ADS_TAG_ID = "AW-18142369282"
 
 GOOGLE_TAG = f'''<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={MEASUREMENT_ID}"></script>
@@ -15,6 +16,7 @@ GOOGLE_TAG = f'''<!-- Google tag (gtag.js) -->
   function gtag(){{dataLayer.push(arguments);}}
   gtag('js', new Date());
   gtag('config', '{MEASUREMENT_ID}');
+  gtag('config', '{ADS_TAG_ID}');
 </script>
 '''
 
